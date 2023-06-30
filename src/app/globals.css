@@ -1,3 +1,6 @@
+:root {
+  --green-light: #53c28b;
+}
 * {
   box-sizing: border-box;
   padding: 0;
