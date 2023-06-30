@@ -1,14 +1,14 @@
 import styles from './page.module.css'
 import Image from 'next/image';
-import React from 'react'
+import { notFound } from 'next/navigation'
 
-const BlogPost = ({ params }) => {
-    // const data = await getData(params.id);
+const BlogPost = async ({ params }) => {
+    const data = await getData(params.id);
     return (
         <div className={styles.container}>
             <div className={styles.top}>
                 <div className={styles.info}>
-                    <h1 className={styles.title}>Test Title</h1>
+                    <h1 className={styles.title}>{data.title} </h1>
                     <p className={styles.desc}>
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde voluptatum eveniet porro quasi autem ullam aperiam nisi fuga, consequuntur asperiores illo dolores laborum qui omnis ad accusantium aut deserunt explicabo?
                     </p>
@@ -34,7 +34,7 @@ const BlogPost = ({ params }) => {
             </div>
             <div className={styles.content}>
                 <p className={styles.text}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iste animi molestiae vel ipsam rem eligendi est ut odio architecto eum alias, amet perferendis cupiditate quam ipsum. Quisquam, error eius.
+                    {data.body}
                 </p>
             </div>
         </div>
@@ -42,3 +42,14 @@ const BlogPost = ({ params }) => {
 };
 
 export default BlogPost
+async function getData(id) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, { cache: 'no-store' })
+
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        return notFound()
+    }
+
+    return res.json()
+}

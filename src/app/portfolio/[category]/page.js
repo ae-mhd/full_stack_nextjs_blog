@@ -1,73 +1,33 @@
 import styles from "./page.module.css";
 import Button from '@/components/Button/button';
 import Image from 'next/image';
-import React from 'react'
+import { notFound } from "next/navigation";
+import { items } from "./data";
+
 
 const Category = ({ params }) => {
-    // const data = getData(params.category);
+    const data = getData(params.category);
     return (
         <div className={styles.container}>
             <h1 className={styles.catTitle}>{params.category}</h1>
-            <div className={styles.item}>
-                <div className={styles.content}>
-                    <h1 className={styles.title}>Test Title</h1>
-                    <p className={styles.desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sequi accusamus eos aut, numquam facilis aliquam? Odit necessitatibus aspernatur ipsum, praesentium ducimus vero natus unde eum expedita voluptates iure explicabo! </p>
-                    <Button text="See More" url="#" />
+            {data.map((item) => (
+                <div key={item.id} className={styles.item}>
+                    <div className={styles.content}>
+                        <h1 className={styles.title}>{item.title}</h1>
+                        <p className={styles.desc}>{item.decs}</p>
+                        <Button text="See More" url="#" />
+                    </div>
+                    <div className={styles.imgContainer}>
+                        <Image
+                            className={styles.img}
+                            fill={true}
+                            src={item.image}
+                            alt=""
+                        />
+                    </div>
                 </div>
-                <div className={styles.imgContainer}>
-                    <Image
-                        className={styles.img}
-                        fill={true}
-                        src='https://images.pexels.com/photos/3183179/pexels-photo-3183179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                        alt=""
-                    />
-                </div>
-            </div>
-            <div className={styles.item}>
-                <div className={styles.content}>
-                    <h1 className={styles.title}>Test Title</h1>
-                    <p className={styles.desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sequi accusamus eos aut, numquam facilis aliquam? Odit necessitatibus aspernatur ipsum, praesentium ducimus vero natus unde eum expedita voluptates iure explicabo! </p>
-                    <Button text="See More" url="#" />
-                </div>
-                <div className={styles.imgContainer}>
-                    <Image
-                        className={styles.img}
-                        fill={true}
-                        src='https://images.pexels.com/photos/3183179/pexels-photo-3183179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                        alt=""
-                    />
-                </div>
-            </div>
-            <div className={styles.item}>
-                <div className={styles.content}>
-                    <h1 className={styles.title}>Test Title</h1>
-                    <p className={styles.desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sequi accusamus eos aut, numquam facilis aliquam? Odit necessitatibus aspernatur ipsum, praesentium ducimus vero natus unde eum expedita voluptates iure explicabo! </p>
-                    <Button text="See More" url="#" />
-                </div>
-                <div className={styles.imgContainer}>
-                    <Image
-                        className={styles.img}
-                        fill={true}
-                        src='https://images.pexels.com/photos/3183179/pexels-photo-3183179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                        alt=""
-                    />
-                </div>
-            </div>
-            <div className={styles.item}>
-                <div className={styles.content}>
-                    <h1 className={styles.title}>Test Title</h1>
-                    <p className={styles.desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sequi accusamus eos aut, numquam facilis aliquam? Odit necessitatibus aspernatur ipsum, praesentium ducimus vero natus unde eum expedita voluptates iure explicabo! </p>
-                    <Button text="See More" url="#" />
-                </div>
-                <div className={styles.imgContainer}>
-                    <Image
-                        className={styles.img}
-                        fill={true}
-                        src='https://images.pexels.com/photos/3183179/pexels-photo-3183179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                        alt=""
-                    />
-                </div>
-            </div>
+            ))}
+
 
         </div>
     );
@@ -75,3 +35,10 @@ const Category = ({ params }) => {
 }
 
 export default Category
+const getData = (cat) => {
+    const data = items[cat]
+    if (data) {
+        return data
+    }
+    return notFound()
+}
