@@ -10,7 +10,7 @@ const BlogPost = async ({ params }) => {
                 <div className={styles.info}>
                     <h1 className={styles.title}>{data.title} </h1>
                     <p className={styles.desc}>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde voluptatum eveniet porro quasi autem ullam aperiam nisi fuga, consequuntur asperiores illo dolores laborum qui omnis ad accusantium aut deserunt explicabo?
+                        {data.desc}
                     </p>
                     <div className={styles.author}>
                         <Image
@@ -20,12 +20,12 @@ const BlogPost = async ({ params }) => {
                             height={40}
                             className={styles.avatar}
                         />
-                        <span className={styles.username}>Test</span>
+                        <span className={styles.username}>{data.username}</span>
                     </div>
                 </div>
                 <div className={styles.imageContainer}>
                     <Image
-                        src='https://images.pexels.com/photos/17359258/pexels-photo-17359258/free-photo-of-sea-dawn-sunset-man.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        src={data.img}
                         alt=""
                         fill={true}
                         className={styles.image}
@@ -34,7 +34,7 @@ const BlogPost = async ({ params }) => {
             </div>
             <div className={styles.content}>
                 <p className={styles.text}>
-                    {data.body}
+                    {data.content}
                 </p>
             </div>
         </div>
@@ -43,7 +43,7 @@ const BlogPost = async ({ params }) => {
 
 export default BlogPost
 async function getData(id) {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, { cache: 'no-store' })
+    const res = await fetch(`http://localhost:3000/api/posts/${id}`, { cache: 'no-store' })
 
 
     if (!res.ok) {

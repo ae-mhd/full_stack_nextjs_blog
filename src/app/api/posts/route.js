@@ -12,7 +12,7 @@ export const GET = async (request) => {
         const posts = await Post.find();
         console.log(posts)
 
-        return new NextResponse('Well Done', { status: 200 });
+        return new NextResponse(JSON.stringify(posts), { status: 200 });
     } catch (err) {
         return new NextResponse(err, { status: 500 });
     }

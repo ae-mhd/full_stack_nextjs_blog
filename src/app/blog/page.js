@@ -10,12 +10,12 @@ const Blog = async () => {
             {data.map(post => (
                 <Link
                     key={post.id}
-                    href={`/blog/${post.id}`}
+                    href={`/blog/${post._id}`}
                     // href={`/blog/testid`}
                     className={styles.container} >
                     <div className={styles.imageContainer}>
                         <Image
-                            src='https://images.pexels.com/photos/17131205/pexels-photo-17131205/free-photo-of-food-wood-restaurant-dawn.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                            src={post.img}
                             alt=""
                             width={400}
                             height={250}
@@ -24,7 +24,7 @@ const Blog = async () => {
                     </div>
                     <div className={styles.content}>
                         <h1 className={styles.title}>{post.title} </h1>
-                        <p className={styles.desc}>{post.body} </p>
+                        <p className={styles.desc}>{post.content} </p>
                     </div>
                 </Link>
             ))}
@@ -38,7 +38,7 @@ const Blog = async () => {
 export default Blog
 
 async function getData() {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts', { cache: 'no-store' })
+    const res = await fetch('http://localhost:3000/api/posts', { cache: 'no-store' })
 
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
