@@ -4,11 +4,10 @@ import Post from "@/models/Post";
 
 export const GET = async (request) => {
 
-
     try {
         console.log('Connecting')
         await connect();
-        console.log('Connected')
+        console.log('DB Connected succefully')
         const posts = await Post.find();
         console.log(posts)
 

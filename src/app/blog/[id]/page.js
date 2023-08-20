@@ -40,9 +40,18 @@ const BlogPost = async ({ params }) => {
         </div>
     );
 };
+export async function generateMetadata({ params }) {
+    const post = await getData(params.id)
+    return {
+        title: post.title,
+        description: post.desc
+    }
+}
 
 export default BlogPost
 async function getData(id) {
+    console.log('id====', id)
+
     const res = await fetch(`http://localhost:3000/api/posts/${id}`, { cache: 'no-store' })
 
 
